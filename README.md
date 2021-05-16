@@ -4,7 +4,7 @@ Kyseessä on keskustelufoorumi, jossa viesteihin voi lisäksi liittää kuvan, e
 
 Jokaiselle foorumille vierailevalle luodaan automaattisesti tunnus. Näin foorumin käyttö onnistuu myös ilman rekisteröintiä. Luomalla tunnuksen voi kuitenkin määritellä haluamansa käyttäjätunnuksen ja salasanan. Anonyymit käyttäjät tunnistetaan cookien talletettavan id:n perusteella, joten ne häviävät mikäli mikäli evästeet tyhjennetään. Rekisteröidylle tunnukselle voi kirjautua aina.
 
-Omia viestejä ja ketjuja voi poistaa ja muokata. Muiden luomia viestejä ja ketjuja voi piilottaa. Toisiin viesteihin voi vastata liittämällä omaan viestiin ko. viestin id:n. Käyttäjä voi myös hakea viestejä tietyn hakusanan perusteella.
+Omia viestejä ja ketjuja voi poistaa ja muokata. Muiden luomiin viesteihin ja ketjuhin voi vastava ja niitä voi piilottaa. Toisiin viesteihin voi vastata liittämällä omaan viestiin ko. viestin id:n. Käyttäjä voi myös hakea viestejä tietyn hakusanan perusteella.
 
 Käyttäjä voi saada erilaisia ilmoituksia, kuten vastaus viestiin, esto jne. Ilmoitukset voi lukea erillisestä näkymästä ja kuitata luetuiksi.
 
