@@ -11,7 +11,7 @@ services:
       - 5000:5000
     environment:
       - FLASK_ENV=development
-      - FLASK_APP=app.py
+      - FLASK_APP=src/app.py
       - DATABASE_URL=postgresql://tsoha:tsoha@db/tsoha
     depends_on:
       - db
