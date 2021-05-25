@@ -24,6 +24,10 @@ def new_thread():
 def reply():
     return '/reply'
 
+@app.route('/edit-post', methods=['POST'])
+def edit_post():
+    return '/edit-post'
+
 @app.route('/delete-thread', methods=['POST'])
 def delete_thread():
     return '/delete-thread'
