@@ -9,6 +9,7 @@
 * ```POST /hide```
 * ```POST /new-thread```
 * ```POST /reply```
+* ```POST /edit-post```
 * ```POST /delete-thread```
 * ```POST /delete-post```
 * ```GET /i/<image>```
