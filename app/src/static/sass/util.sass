@@ -5,7 +5,7 @@ $md: 64em
 $lg: 75em
 $xl: 90em
 
-$thresold: 0.001em
+$threshold: 0.001em
 
 /* Mixins */
 @mixin xs
@@ -29,7 +29,7 @@ $thresold: 0.001em
         @content
 
 @mixin upto($breakpoint)
-    @media only screen and (max-width: $breakpoint - $thresold)
+    @media only screen and (max-width: $breakpoint - $threshold)
         @content
 
 @mixin gap($size)
@@ -39,7 +39,6 @@ $thresold: 0.001em
     > *
         padding-top: $size
         padding-left: $size
-
 
 @mixin gap-x($size)
     margin-left: -$size
