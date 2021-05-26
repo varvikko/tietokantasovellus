@@ -1,0 +1,31 @@
+@import 'util.sass'
+
+.index__content
+    display: flex
+    align-items: center
+    flex-direction: column
+
+.index__boards--title
+    color: $font-color
+    font-size: 2.5em
+    font-weight: bold
+    text-align: center
+    padding: 2rem 0
+
+.index__boards
+    padding: 0 2rem
+    max-width: $md
+    list-style: none
+    +gap-y(1rem)
+    +gap-x(2rem)
+    justify-content: center
+    display: flex
+    flex-wrap: wrap
+
+.index--link
+    text-decoration: none
+    color: $font-color
+    white-space: nowrap
+
+    &:hover
+        color: darken($font-color, 15%)

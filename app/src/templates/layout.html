@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css')}}" />
+
+<div class="layout">
+    <header class="layout__header">
+        <ul class="layout__boards">
+            {% for board in boards %}
+            <li class="layout__boards--element">
+                <a href="{{board['path']}}" class="layout__header--link">
+                    {{ board['path'] }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <div class="layout__user">
+            <a href="/self" class="layout__header--link">profile</a>
+        </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+</div>

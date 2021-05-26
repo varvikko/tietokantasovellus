@@ -1,0 +1,32 @@
+@import 'util.sass'
+    
+body
+    background-color: $background-color
+    font-family: $font-family
+
+.layout__header
+    background-color: $highlight-color
+    border-bottom: 1px solid $font-color
+    display: flex
+    justify-content: space-between
+    padding: .5rem 1rem
+    +gap-x(3rem)
+
+.layout__boards
+    display: flex
+    list-style: none
+    flex-direction: row
+    flex-wrap: wrap
+    +gap-x(1rem)
+    +gap-y(.5rem)
+
+.layout__boards--element
+
+.layout__header--link
+    text-decoration: none
+    color: $font-color
+    font-size: 0.8em
+    font-weight: bold
+
+    &:hover
+        color: darken($font-color, 15%)

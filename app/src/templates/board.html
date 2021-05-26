@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ board[path] }}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/board.css')}}" />
+</head>
+<body>
+    {% extends "layout.html" %}
+    
+    {% block content %}
+
+    <div class="index__content">
+        <h1 class="index__boards--title">{{ board['name'] }}</h1>
+    </div>
+    {% endblock %}
+</body>
+</html>
