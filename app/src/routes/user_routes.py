@@ -1,3 +1,4 @@
+from flask import render_template
 from app import app
 
 @app.route('/')
@@ -6,7 +7,7 @@ def index():
 
 @app.route('/<board>')
 def board(board):
-    return f'/{board}'
+    return f'{board}'
 
 @app.route('/<board>/<thread>')
 def thread(board, thread):
