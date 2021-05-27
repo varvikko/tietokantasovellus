@@ -1,17 +1,39 @@
-from flask import render_template
+import secrets
+from flask import render_template, request, make_response, session, redirect
 from app import app
+
+from controllers import boards
+from controllers import images
+from controllers import threads
+from db import db
 
 @app.route('/')
 def index():
-    return '/'
+    return render_template('index.html')
+
+@app.route('/thread/<thread_id>')
+def thread(thread_id):
+
+    thread_obj = threads.get_thread(thread_id)
+
+    return render_template('thread.html', thread=thread_obj)
 
 @app.route('/<board>')
-def board(board):
-    return f'{board}'
+@app.route('/<board>/<page>')
+def board(board, page=1):
+    board_obj = boards.get_board(board)
 
-@app.route('/<board>/<thread>')
-def thread(board, thread):
-    return f'/{board}/{thread}'
+    offset = (int(page) - 1) * 10
+    count = 10
+
+    thread_list = threads.get_threads_from_board(
+        board_obj['path'], offset, count
+    )
+
+    return render_template('board.html',
+        board=board_obj,
+        threads=thread_list,
+        page=int(page))
 
 @app.route('/hide', methods=['POST'])
 def hide():
@@ -19,11 +41,30 @@ def hide():
 
 @app.route('/new-thread', methods=['POST'])
 def new_thread():
-    return '/new-thread'
+    if not 'uid' in session:
+        raise Exception('invalid user')
+
+    image_id = images.add_image(request.files['image'])
+
+    content = request.form['content']
+    uid = session['uid']
+    board = request.form['board']
+
+    threads.create_thread(content, board, uid, image_id)
+
+    return redirect(board)
 
 @app.route('/reply', methods=['POST'])
 def reply():
-    return '/reply'
+    image_id = images.add_image(request.files['image'])
+    content = request.form['content']
+    thread_id = request.form['thread']
+
+    uid = session['uid']
+
+    threads.reply(thread_id, content, uid, image_id)
+
+    return redirect(f'/thread/{thread_id}')
 
 @app.route('/edit-post', methods=['POST'])
 def edit_post():
@@ -63,4 +104,8 @@ def login():
 
 @app.route('/i/<image>')
 def get_image(image):
-    return f'/i/{image}'
+    obj = images.get_image(image)
+
+    response = make_response(bytes(obj['data']))
+    response.headers.set('Content-Type', obj['content_type'])
+    return response

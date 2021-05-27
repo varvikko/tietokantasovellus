@@ -9,5 +9,7 @@ app.secret_key = os.environ['SECRET_KEY']
 if os.environ['FLASK_ENV'] == 'development':
     sass.compile(dirname=('src/static/sass', 'src/static/css'))
 
+from middleware import validate_user
+from middleware import inject
 from routes import user_routes
 from routes import admin_routes

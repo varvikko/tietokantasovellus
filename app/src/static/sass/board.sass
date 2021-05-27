@@ -1,2 +1,143 @@
 @import 'util.sass'
 
+.board__header
+    display: flex
+    justify-content: center
+    flex-direction: column
+    text-align: center
+    margin: 2rem 0
+
+.board--title
+    color: $font-color
+    font-size: 2em
+    margin-bottom: 1rem
+
+.board--description
+    font-style: italic
+
+.board__form--new
+    width: 90vw
+    max-width: 40rem
+
+    .form__element
+        display: flex
+        margin-bottom: 1rem
+        width: 100%
+
+    .form__label
+        width: 30%
+        background-color: $highlight-color
+        color: $font-color
+        font-weight: bold
+        display: block
+        margin-right: 1rem
+        padding: .25rem .5rem
+
+    input[type=text]
+        width: 70%
+        padding: .25rem .5rem
+
+    input[type=submit]
+        padding: .25rem .5rem
+
+    textarea
+        width: 70%
+        height: 10em
+        resize: both
+        min-width: 70%
+        min-height: 10em
+        max-width: 75vw
+        max-height: 40em
+
+.form__wrapper
+    display: flex
+    justify-content: center
+    border-bottom: 1px solid $highlight-color
+    padding-bottom: 2rem
+
+.thread
+    padding: 2em 1em
+    border-bottom: 1px solid $highlight-color
+
+    +sm
+        padding-right: 2em
+        padding-left: 2em
+
+    +md
+        padding-right: 3em
+        padding-left: 3em
+
+.post
+    overflow: auto
+
+.post__header
+    display: flex
+    font-size: 0.8em
+    background-color: $highlight-color
+    padding: .25rem
+    column-gap: .5rem
+    margin-bottom: 1rem
+    color: $font-color
+
+.bold
+    font-weight: bold
+
+.post__image--wrapper
+    width: 10rem
+    height: 7.5rem
+    background-color: $highlight-color
+    float: left
+    clear: left
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-right: 1rem
+    margin-bottom: 1rem
+
+    +sm
+        width: 15rem
+        height: 11.25rem
+
+.post__image
+    max-width: 100%
+    max-height: 100%
+
+.post__content p
+    margin-bottom: 1rem
+    line-height: 1.33
+    color: $font-color
+
+pre
+    white-space: pre-wrap;
+    font-family: $font-family
+
+.thread__header
+    width: 25%
+    min-width: 20em
+
+    a
+        display: block
+        width: 100%
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 1.15em
+        text-decoration: none
+        color: $font-color
+
+.board__navigation
+    padding: 1rem 3rem
+
+    a
+        padding: .5rem
+        color: $font-color
+        text-decoration: none
+
+.current--board
+    background-color: $highlight-color
+    font-weight: bold
+
+.threads--none
+    text-align: center
+    padding: 2rem 0
+    color: $font-color

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,14 +9,81 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/board.css')}}" />
 </head>
-<body>
-    {% extends "layout.html" %}
-    
-    {% block content %}
 
-    <div class="index__content">
-        <h1 class="index__boards--title">{{ board['name'] }}</h1>
-    </div>
-    {% endblock %}
+<body>
+    {% extends "layout.html" %} {% block content %}
+
+    <div class="board__content">
+
+        <div class="board__header">
+            <h1 class="board--title">{{ board['path'] }} - {{ board['name'] }}</h1>
+            <p class="board--description">{{ board['description'] }}</p>
+        </div>
+
+        <div class="form__wrapper">
+            <form class="board__form--new" action="/new-thread" method="POST" enctype="multipart/form-data">
+                <div class="form__element">
+                    <label for="board-content" class="form__label">Content</label>
+                    <textarea id="board-content" name="content"></textarea>
+                </div>
+                <div class="form__element">
+                    <label for="board-image" class="form__label">Image</label>
+                    <input type="file" id="board-image" name="image" />
+                </div>
+                <input type="hidden" value="{{board['path']}}" name="board" />
+                <input type="submit" value="Create" />
+            </form>
+        </div>
+
+        {% if threads|length == 0 %}
+        <h1 class="threads--none">No threads</h1>
+        {% endif %}
+
+        <div class="board__threads">
+            {% for thread in threads %}
+            <div class="thread">
+                <div class="thread__header">
+                    <a href="/thread/{{ thread[0]['id'] }}">
+                        {{ thread[0]['body'] }}
+                    </a>
+                </div>
+                {% for post in thread %}
+
+
+                <div class="post">
+                    <div class="post__header">
+                        <p class="bold">No. {{ post['id']}}</p>
+                        <p>{{ post['created_at'] }}</p>
+                    </div>
+
+                    <div class="post__body">
+                        {% if post['filename'] %}
+                        <div class="post__image--wrapper">
+                            <img src="/i/{{ post['filename'] }}" class="post__image" />
+                        </div>
+                        {% endif %}
+
+                        <div class="post__content">
+                            <p>
+                                <pre>{{ post['body'] }}</pre>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="board__navigation">
+            {% set start_index = page - 3 %} {% if start_index
+            < 1 %} {% set start_index=1 %} {% endif %} {% set end_index=start_index + 7 %} {% for i in range(start_index, end_index) %} {% if i==page %} <a href="{{ board['path'] }}{{ i }}" class="current--board">{{ i }}</a>
+                {% else %}
+                <a href="{{ board['path'] }}{{ i }}">{{ i }}</a> {% endif %} {% endfor %}
+        </div>
+        {% endblock %}
 </body>
+
 </html>

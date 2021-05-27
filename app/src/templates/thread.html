@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/board.css') }}" />
+</head>
+
+<body>
+    {% extends "layout.html" %} {% block content %}
+
+    <div class="thread">
+        {% for post in thread %}
+
+
+        <div class="post">
+            <div class="post__header">
+                <p class="bold">No. {{ post['id']}}</p>
+                <p>{{ post['created_at'] }}</p>
+            </div>
+
+            <div class="post__body">
+                {% if post['filename'] %}
+                <div class="post__image--wrapper">
+                    <img src="/i/{{ post['filename'] }}" class="post__image" />
+                </div>
+                {% endif %}
+
+                <div class="post__content">
+                    <p>
+                        <pre>{{ post['body'] }}</pre>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="form__wrapper">
+        <form class="board__form--new" action="/reply" method="POST" enctype="multipart/form-data">
+            <div class="form__element">
+                <label for="board-content" class="form__label">Content</label>
+                <textarea id="board-content" name="content"></textarea>
+            </div>
+            <div class="form__element">
+                <label for="board-image" class="form__label">Image</label>
+                <input type="file" id="board-image" name="image" />
+            </div>
+            <input type="hidden" value="{{ thread[0]['id'] }}" name="thread" />
+            <input type="submit" value="Create " />
+        </form>
+    </div>
+    {% endblock %}
+</body>
+
+</html>
