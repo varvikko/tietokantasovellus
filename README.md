@@ -1,3 +1,5 @@
+https://tsohachan.herokuapp.com/
+
 # Kuvafoorumi
 
 Kyseessä on keskustelufoorumi, jossa viesteihin voi lisäksi liittää kuvan, eli ns. kuvafoorumi. Foorumia voi katsella ja viestejä voi lähettää kuka tahansa anonyymisti. Lisäksi foorumiin voi luoda oman tunnuksen. Foorumilla on erilaisia keskustelualueita. Jokainen lanka (ketju) ja viesti kuuluu jollekin alueelle.
