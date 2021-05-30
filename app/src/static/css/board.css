@@ -15,7 +15,7 @@
   margin: 2rem 0; }
 
 .board--title {
-  color: #2D324A;
+  color: #36382E;
   font-size: 2em;
   margin-bottom: 1rem; }
 
@@ -31,8 +31,8 @@
     width: 100%; }
   .board__form--new .form__label {
     width: 30%;
-    background-color: #AEB0D0;
-    color: #2D324A;
+    background-color: #EDE6E3;
+    color: #36382E;
     font-weight: bold;
     display: block;
     margin-right: 1rem;
@@ -54,12 +54,12 @@
 .form__wrapper {
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid #AEB0D0;
+  border-bottom: 1px solid #36382E;
   padding-bottom: 2rem; }
 
 .thread {
   padding: 2em 1em;
-  border-bottom: 1px solid #AEB0D0; }
+  border-bottom: 1px solid #36382E; }
   @media only screen and (min-width: 48em) {
     .thread {
       padding-right: 2em;
@@ -74,11 +74,11 @@
 .post__header {
   display: flex;
   font-size: 0.8em;
-  background-color: #AEB0D0;
+  background-color: #EDE6E3;
   padding: .25rem .5rem;
   column-gap: .5rem;
   margin-bottom: 1rem;
-  color: #2D324A; }
+  color: #36382E; }
 
 .bold {
   font-weight: bold; }
@@ -86,7 +86,7 @@
 .post__image--wrapper {
   width: 10rem;
   height: 7.5rem;
-  background-color: #AEB0D0;
+  background-color: #EDE6E3;
   float: left;
   clear: left;
   display: flex;
@@ -105,7 +105,7 @@
 .post__content p {
   margin-bottom: 1rem;
   line-height: 1.33;
-  color: #2D324A; }
+  color: #36382E; }
 
 pre {
   white-space: pre-wrap;
@@ -122,29 +122,29 @@ pre {
     text-overflow: ellipsis;
     font-size: 1.2em;
     text-decoration: none;
-    color: #2D324A;
+    color: #36382E;
     margin-bottom: .5rem; }
 
 .board__navigation {
   padding: 1rem 3rem; }
   .board__navigation a {
     padding: .5rem;
-    color: #2D324A;
+    color: #36382E;
     text-decoration: none; }
 
 .current--board {
-  background-color: #AEB0D0;
+  background-color: #EDE6E3;
   font-weight: bold; }
 
 .threads--none {
   text-align: center;
   padding: 2rem 0;
-  color: #2D324A; }
+  color: #36382E; }
 
 .thread--replies {
   clear: both;
   font-size: .8em;
-  color: #2D324A;
+  color: #36382E;
   margin-bottom: .5rem; }
 
 .post--author {

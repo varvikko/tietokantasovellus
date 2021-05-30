@@ -8,12 +8,12 @@
   box-sizing: border-box; }
 
 body {
-  background-color: #CCD0DB;
+  background-color: #DADAD9;
   font-family: sans-serif; }
 
 .layout__header {
-  background-color: #AEB0D0;
-  border-bottom: 1px solid #2D324A;
+  background-color: #EDE6E3;
+  border-bottom: 1px solid #36382E;
   display: flex;
   justify-content: space-between;
   padding: .5rem 1rem;
@@ -35,8 +35,8 @@ body {
 
 .layout__header--link {
   text-decoration: none;
-  color: #2D324A;
+  color: #36382E;
   font-size: 0.8em;
   font-weight: bold; }
   .layout__header--link:hover {
-    color: #10121a; }
+    color: #0e0e0c; }

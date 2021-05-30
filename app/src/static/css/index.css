@@ -13,7 +13,7 @@
   flex-direction: column; }
 
 .index__boards--title {
-  color: #2D324A;
+  color: #36382E;
   font-size: 2.5em;
   font-weight: bold;
   text-align: center;
@@ -35,7 +35,7 @@
 
 .index--link {
   text-decoration: none;
-  color: #2D324A;
+  color: #36382E;
   white-space: nowrap; }
   .index--link:hover {
-    color: #10121a; }
+    color: #0e0e0c; }
