@@ -43,10 +43,12 @@ def get_thread(thread_id):
 
 def construct_thread(thread_id):
     result = db.session.execute('''
-        SELECT posts.id, body, image, created_at, edited, filename
+        SELECT posts.id, body, image, created_at, edited, filename, users.name
         FROM posts
         LEFT JOIN images
         ON posts.image = images.id
+        LEFT JOIN users
+        on posts.author = users.id
         WHERE thread = :id OR posts.id = :id
         ORDER BY created_at ASC
     ''', { 'id': thread_id })
@@ -61,6 +63,7 @@ def construct_thread(thread_id):
                 'created_at': t[3].strftime('%d/%m/%Y %H:%M:%S'),
                 'edited': t[4],
                 'filename': t[5],
+                'author': t[6]
             },
             threads
         )
