@@ -14,6 +14,9 @@ Jokaisella alueella on oma näkymänsä, jossa näkyvät ketjut joihin on viimei
 
 Ylläpitäjä voi poistaa minkä tahansa ketjun tai viestin. Lisäksi ylläpitäjä voi asettaa käyttäjälle eston.
 
+# Sovelluksen tila
+
+Sovellukseen on toteutettu keskeiset toiminnot, kuten ketjujen luonti ja vastausten lähetys sekä rekisteröinti ja kirjautuminen.
 
 # Deployment
 
@@ -24,3 +27,6 @@ Run
 ```sh
 docker-compose up --build
 ```
+
+App will open on port 5000
+
