@@ -23,6 +23,8 @@ def thread(thread_id):
 @app.route('/<board>/<page>')
 def board(board, page=1):
     board_obj = boards.get_board(board)
+    if not board_obj:
+        raise Exception('Page not found')
 
     offset = (int(page) - 1) * 10
     count = 10

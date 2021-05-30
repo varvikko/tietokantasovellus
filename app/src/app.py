@@ -11,5 +11,6 @@ if os.environ['FLASK_ENV'] == 'development':
 
 from middleware import validate_user
 from middleware import inject
+from middleware import error
 from routes import user_routes
 from routes import admin_routes
