@@ -3,6 +3,11 @@
 <div class="layout">
     <header class="layout__header">
         <ul class="layout__boards">
+            <li class="layout__boards--element">
+                <a href="/" class="layout__header--link">
+                    [ home ]
+                </a>
+            </li>
             {% for board in boards %}
             <li class="layout__boards--element">
                 <a href="{{board['path']}}" class="layout__header--link">
@@ -13,10 +18,13 @@
         </ul>
 
         <div class="layout__user">
+            {% if logged_in %}
+            <a href="/self/logout" class="layout__header--link">logout</a> {% else %}
+            <a href="/register" class="layout__header--link">register</a>
+            <a href="/login" class="layout__header--link">login</a> {% endif %}
             <a href="/self" class="layout__header--link">profile</a>
         </div>
     </header>
 
-    {% block content %}
-    {% endblock %}
+    {% block content %} {% endblock %}
 </div>

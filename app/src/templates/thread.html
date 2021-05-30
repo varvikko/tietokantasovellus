@@ -19,6 +19,9 @@
 
         <div class="post">
             <div class="post__header">
+                {% if post['author'] %}
+                <p class="post--author">{{ post['author'] }}</p>
+                {% endif %}
                 <p class="bold">No. {{ post['id']}}</p>
                 <p>{{ post['created_at'] }}</p>
             </div>
@@ -36,6 +39,12 @@
                     </p>
                 </div>
             </div>
+
+            {% if post == thread[0] %}
+            <div class="thread--replies">
+                {{ thread|length - 1 }} replies
+            </div>
+            {% endif %}
         </div>
         {% endfor %}
     </div>

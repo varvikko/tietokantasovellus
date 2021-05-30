@@ -1,3 +1,5 @@
+bcrypt==3.2.0
+cffi==1.14.5
 click==8.0.1
 Flask==2.0.0
 Flask-SQLAlchemy==2.5.1
@@ -8,6 +10,7 @@ Jinja2==3.0.1
 libsass==0.21.0
 MarkupSafe==2.0.1
 psycopg2-binary==2.8.6
+pycparser==2.20
 six==1.16.0
 SQLAlchemy==1.4.15
 Werkzeug==2.0.1

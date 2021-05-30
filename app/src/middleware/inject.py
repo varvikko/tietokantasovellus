@@ -1,3 +1,5 @@
+from flask import session
+
 from app import app
 from db import db
 
@@ -14,4 +16,5 @@ def inject_boards():
             result.fetchall()
         )
     )
-    return dict(boards=boards)
+    return dict(boards=boards, logged_in=('username' in session))
+

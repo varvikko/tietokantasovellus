@@ -5,6 +5,7 @@ from app import app
 from controllers import boards
 from controllers import images
 from controllers import threads
+from controllers import users
 from db import db
 
 @app.route('/')
@@ -80,11 +81,15 @@ def delete_post():
 
 @app.route('/self')
 def self():
-    return '/self'
+    return render_template('self.html', uid=session['uid'],
+        username=session['username'] if 'username' in session else None)
 
 @app.route('/self/stats')
 def stats():
-    return '/self/stats'
+    uid = session['uid']
+    stats = users.get_stats(uid)
+
+    return render_template('stats.html', stats=stats)
 
 @app.route('/self/settings')
 def settings():
@@ -96,11 +101,31 @@ def save_settings():
 
 @app.route('/self/logout')
 def logout():
-    return '/self/logout'
+    users.logout()
 
-@app.route('/login', methods=['POST'])
+    return redirect('/')
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return '/login'
+    if request.method == 'POST':
+        username = request.form['username'] or ''
+        password = request.form['password'] or ''
+        users.login(username, password.encode(encoding='UTF-8'))
+
+        return redirect('/')
+    else:
+        return render_template('login.html')
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        users.register_user(username, password.encode(encoding='UTF-8'))
+
+        return redirect('/')
+    else:
+        return render_template('register.html')
 
 @app.route('/i/<image>')
 def get_image(image):
