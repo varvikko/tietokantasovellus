@@ -12,3 +12,13 @@ Jokaisella alueella on oma näkymänsä, jossa näkyvät ketjut joihin on viimei
 
 Ylläpitäjä voi poistaa minkä tahansa ketjun tai viestin. Lisäksi ylläpitäjä voi asettaa käyttäjälle eston.
 
+
+# Deployment
+
+## Local deployment
+
+Run
+
+```sh
+docker-compose up --build
+```
