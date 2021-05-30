@@ -2,6 +2,9 @@ from datetime import datetime
 from db import db
 
 def create_thread(content, board, author, image_id=None):
+    if not content:
+        raise Exception('Content is required')
+
     db.session.execute('''
         INSERT INTO posts (board, author, body, image, created_at)
         VALUES (:board, :author, :body, :image, current_timestamp)
@@ -9,6 +12,9 @@ def create_thread(content, board, author, image_id=None):
     db.session.commit()
 
 def reply(thread_id, content, author, image_id=None):
+    if not content:
+        raise Exception('Content is required')
+    
     db.session.execute('''
         INSERT INTO posts (board, thread, author, body, image, created_at)
         VALUES (
