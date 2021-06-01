@@ -40,6 +40,17 @@
                 </div>
             </div>
 
+            <div class="post__footer">
+                {% if post['replies'] %}
+                    <p class="replies--title">Replies:</p>
+                    <ul class="replies--list">
+                        {% for reply in post['replies'] %}
+                        <li><a href="#">&gt;&gt;{{ reply }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
             {% if post == thread[0] %}
             <div class="thread--replies">
                 {{ thread|length - 1 }} replies
