@@ -138,5 +138,5 @@ dmypy.json
 cython_debug/
 
 # CSS
-*.css
+app/src/static/css
 
