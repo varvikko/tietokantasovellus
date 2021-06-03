@@ -20,7 +20,7 @@ def create_thread(content, board, author, image_id=None):
 def reply(thread_id, content, author, image_id=None):
     if not content:
         raise Exception('Content is required')
-    
+
     result = db.session.execute('''
         INSERT INTO posts (board, thread, author, body, image, created_at)
         VALUES (
@@ -55,7 +55,7 @@ def insert_replies(from_id, reply_ids):
     db.session.commit()
 
 def extract_replies(content):
-    return re.findall(r'>>(\d+)', content)
+    return list(set(re.findall(r'>>(\d+)', content)))
 
 def get_threads_from_board(path, offset, count):
     result = db.session.execute('''

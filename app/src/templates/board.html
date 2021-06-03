@@ -52,11 +52,17 @@
 
                 <div class="post">
                     <div class="post__header">
-                        {% if post['author'] %}
-                        <p class="post--author">{{ post['author'] }}</p>
-                        {% endif %}
-                        <p class="bold">No. {{ post['id']}}</p>
-                        <p>{{ post['created_at'] }}</p>
+                        <div class="post__header--side">
+                            {% if post['author'] %}
+                            <p class="post--author">{{ post['author'] }}</p>
+                            {% endif %}
+                            <p class="bold">No. {{ post['id']}}</p>
+                            <p>{{ post['created_at'] }}</p>
+                        </div>
+
+                        <div class="post__header--side">
+                            <button class="header--button" onclick="reply({{ post['id'] }})">[Reply]</button>
+                        </div>
                     </div>
 
                     <div class="post__body">
@@ -68,19 +74,22 @@
 
                         <div class="post__content">
                             <p>
-                                <pre>{{ post['body'] }}</pre>
+
+                                {% for line in post['body'].splitlines() %} {% for t in line | split %} {%- if t.url -%}
+                                <a class="reply--link" href="#">{{ t.content }}</a>{%- else -%}{{t.content}}{%- endif -%}{% endfor %}
+                                <br> {% endfor %}
                             </p>
                         </div>
                     </div>
 
                     <div class="post__footer">
                         {% if post['replies'] %}
-                            <p class="replies--title">Replies:</p>
-                            <ul class="replies--list">
-                                {% for reply in post['replies'] %}
-                                <li><a href="#">&gt;&gt;{{ reply }}</a></li>
-                                {% endfor %}
-                            </ul>
+                        <p class="replies--title">Replies:</p>
+                        <ul class="replies--list">
+                            {% for reply in post['replies'] %}
+                            <li><a class="reply--link" href="#">&gt;&gt;{{ reply }}</a></li>
+                            {% endfor %}
+                        </ul>
                         {% endif %}
                     </div>
                 </div>
@@ -100,6 +109,14 @@
                 {% else %}
                 <a href="{{ board['path'] }}{{ i }}">{{ i }}</a> {% endif %} {% endfor %}
         </div>
+
+        <script>
+            let boardContent = document.getElementById('board-content')
+
+            function reply(id) {
+                boardContent.textContent += `${boardContent.textContent.length > 0 ? '\n' : ''}>>${id}`
+            }
+        </script>
         {% endblock %}
 </body>
 
