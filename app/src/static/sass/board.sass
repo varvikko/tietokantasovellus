@@ -72,12 +72,23 @@
 
 .post__header
     display: flex
+    justify-content: space-between
     font-size: 0.8em
     background-color: $highlight-color
     padding: .25rem .5rem
-    column-gap: .5rem
     margin-bottom: 1rem
     color: $font-color
+
+.post__header--side
+    display: flex
+    column-gap: .5rem
+
+.header--button
+    appearance: none
+    border: none
+    background-color: transparent
+    color: $font-color
+    cursor: pointer
 
 .bold
     font-weight: bold
@@ -106,6 +117,7 @@
     margin-bottom: 1rem
     line-height: 1.33
     color: $font-color
+    word-wrap: break-word
 
 pre
     white-space: pre-wrap;
@@ -149,6 +161,7 @@ pre
     font-size: .8em
     color: $font-color
     margin-bottom: .5rem
+    margin-left: .5rem
 
 .post--author
     font-weight: bold
@@ -157,6 +170,9 @@ pre
 .post__footer
     font-size: .8em
     color: $font-color
+    margin-bottom: .5rem
+    margin-left: .5rem
+    clear: both
 
 .replies--title
     font-weight: bold
@@ -169,3 +185,17 @@ pre
 
     li
         margin-left: .25rem
+
+.reply--link
+    color: blue
+    text-decoration: none
+
+    &:visited
+        color: blue
+
+
+    &:hover
+        color: red
+
+.post__body
+    margin-left: .5rem
