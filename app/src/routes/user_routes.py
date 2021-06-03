@@ -6,6 +6,7 @@ from controllers import boards
 from controllers import images
 from controllers import threads
 from controllers import users
+from controllers import posts
 from db import db
 
 @app.route('/')
@@ -136,3 +137,9 @@ def get_image(image):
     response = make_response(bytes(obj['data']))
     response.headers.set('Content-Type', obj['content_type'])
     return response
+
+@app.route('/post/<post_id>')
+def post(post_id):
+    post = posts.get_post(post_id)
+
+    return redirect(f'''/thread/{post['thread']}#{post['id']}''')

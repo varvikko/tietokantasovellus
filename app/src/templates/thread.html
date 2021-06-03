@@ -17,7 +17,7 @@
         {% for post in thread %}
 
 
-        <div class="post">
+        <div class="post" id="{{ post.id }}">
             <div class="post__header">
                 <div class="post__header--side">
                     {% if post['author'] %}
@@ -43,7 +43,7 @@
                     <p>
 
                         {% for line in post['body'].splitlines() %} {% for t in line | split %} {%- if t.url -%}
-                        <a class="reply--link" href="#">{{ t.content }}</a>{%- else -%}{{t.content}}{%- endif -%}{% endfor %}
+                        <a class="reply--link" href="/post/{{ t.content[2:] }}">{{ t.content }}</a>{%- else -%}{{t.content}}{%- endif -%}{% endfor %}
                         <br> {% endfor %}
                     </p>
                 </div>
@@ -54,7 +54,7 @@
                 <p class="replies--title">Replies:</p>
                 <ul class="replies--list">
                     {% for reply in post['replies'] %}
-                    <li><a class="reply--link" href="#">&gt;&gt;{{ reply }}</a></li>
+                    <li><a class="reply--link" href="/post/{{ reply }}">&gt;&gt;{{ reply }}</a></li>
                     {% endfor %}
                 </ul>
                 {% endif %}
@@ -62,7 +62,7 @@
 
             {% if post == thread[0] %}
             <div class="thread--replies">
-                {{ thread|length - 1 }} replies
+                {{ thread[0].post_count }} replies
             </div>
             {% endif %}
         </div>

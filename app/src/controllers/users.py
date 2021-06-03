@@ -18,7 +18,7 @@ def register_user(username, password):
 
     password_hash = bcrypt.hashpw(password, bcrypt.gensalt(rounds=ROUNDS)).decode()
     
-    result = db.session.execute('''
+    db.session.execute('''
         UPDATE users
         SET name = :name, passwd = :passwd, role = 'registered'
         WHERE id = :id

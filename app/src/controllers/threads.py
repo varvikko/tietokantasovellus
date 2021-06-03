@@ -76,14 +76,14 @@ def get_threads_from_board(path, offset, count):
     ''', { 'count': count, 'offset': offset, 'board': path })
 
     thread_ids = list(map(lambda i: i[0], result.fetchall()))
-    return construct_threads(thread_ids)
+    return construct_threads(thread_ids, 5)
 
 def get_thread(thread_id):
     return construct_thread(thread_id)
 
-def construct_thread(thread_id):
-    result = db.session.execute('''
-        SELECT posts.id, body, image, created_at, edited, filename, users.name
+def construct_thread(thread_id, limit=None):
+    result = db.session.execute(f'''
+        SELECT posts.id, body, image, created_at, edited, filename, users.name, COUNT(*) OVER() AS post_count
         FROM posts
         LEFT JOIN images
         ON posts.image = images.id
@@ -91,6 +91,7 @@ def construct_thread(thread_id):
         on posts.author = users.id
         WHERE thread = :id OR posts.id = :id
         ORDER BY created_at ASC
+        {f'LIMIT {limit}' if limit else ''}
     ''', { 'id': thread_id })
 
     threads = result.fetchall()
@@ -104,7 +105,8 @@ def construct_thread(thread_id):
                 'edited': t[4],
                 'filename': t[5],
                 'author': t[6],
-                'replies': get_post_replies(t[0])
+                'replies': get_post_replies(t[0]),
+                'post_count': t[7] - 1
             },
             threads
         )
@@ -124,5 +126,5 @@ def get_post_replies(post_id):
         )
     )
 
-def construct_threads(thread_ids):
-    return list(map(construct_thread, thread_ids))
+def construct_threads(thread_ids, limit):
+    return list(map(lambda tid: construct_thread(tid, limit), thread_ids))
