@@ -28,7 +28,8 @@
                 </div>
 
                 <div class="post__header--side">
-                    <button class="header--button" onclick="reply({{ post['id'] }})">[Reply]</button>
+                    <button class="header--button" onclick="reply({{ post['id'] }})">[Reply]</button> {% if uid == post.user_id %}
+                    <a href="/delete/{{post.id}}" class="header--button">[Delete]</a> {% endif %}
                 </div>
             </div>
 

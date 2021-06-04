@@ -8,6 +8,8 @@ from controllers import threads
 from controllers import users
 from controllers import posts
 from db import db
+from middleware.error import NotFoundError
+from middleware.ensure_author import author_required
 
 @app.route('/')
 def index():
@@ -25,7 +27,7 @@ def thread(thread_id):
 def board(board, page=1):
     board_obj = boards.get_board(board)
     if not board_obj:
-        raise Exception('Page not found')
+        raise NotFoundError(f'Board named {board} does not exist.')
 
     offset = (int(page) - 1) * 10
     count = 10
@@ -45,9 +47,6 @@ def hide():
 
 @app.route('/new-thread', methods=['POST'])
 def new_thread():
-    if not 'uid' in session:
-        raise Exception('invalid user')
-
     image_id = images.add_image(request.files['image'])
 
     content = request.form['content']
@@ -74,13 +73,12 @@ def reply():
 def edit_post():
     return '/edit-post'
 
-@app.route('/delete-thread', methods=['POST'])
-def delete_thread():
-    return '/delete-thread'
+@app.route('/delete/<post_id>')
+@author_required
+def delete_post(post_id):
+    posts.delete(post_id)
 
-@app.route('/delete-post', methods=['POST'])
-def delete_post():
-    return '/delete-post'
+    return redirect('/')
 
 @app.route('/self')
 def self():

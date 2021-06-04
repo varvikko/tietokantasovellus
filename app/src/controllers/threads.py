@@ -1,10 +1,14 @@
 import re
 from datetime import datetime
 from db import db
+from middleware.error import (
+    InvalidDataError,
+    NotFoundError
+)
 
 def create_thread(content, board, author, image_id=None):
     if not content:
-        raise Exception('Content is required')
+        raise InvalidDataError('Thread must have content.')
 
     result = db.session.execute('''
         INSERT INTO posts (board, author, body, image, created_at)
@@ -19,7 +23,7 @@ def create_thread(content, board, author, image_id=None):
 
 def reply(thread_id, content, author, image_id=None):
     if not content:
-        raise Exception('Content is required')
+        raise InvalidDataError('Post must have content.')
 
     result = db.session.execute('''
         INSERT INTO posts (board, thread, author, body, image, created_at)
@@ -48,8 +52,6 @@ def insert_replies(from_id, reply_ids):
         INSERT INTO replies (from_post, to_post) VALUES
         {','.join(exprs)}
     '''
-
-    print(query, flush=True)
 
     db.session.execute(query, rid)
     db.session.commit()
@@ -83,7 +85,7 @@ def get_thread(thread_id):
 
 def construct_thread(thread_id, limit=None):
     result = db.session.execute(f'''
-        SELECT posts.id, body, image, created_at, edited, filename, users.name, COUNT(*) OVER() AS post_count
+        SELECT posts.id, body, image, created_at, edited, filename, users.name, COUNT(*) OVER() AS post_count, users.id
         FROM posts
         LEFT JOIN images
         ON posts.image = images.id
@@ -95,6 +97,10 @@ def construct_thread(thread_id, limit=None):
     ''', { 'id': thread_id })
 
     threads = result.fetchall()
+
+    if len(threads) == 0:
+        raise NotFoundError(f'No thread with id {thread_id} was not found.')
+
     return list(
         map(
             lambda t: {
@@ -106,7 +112,8 @@ def construct_thread(thread_id, limit=None):
                 'filename': t[5],
                 'author': t[6],
                 'replies': get_post_replies(t[0]),
-                'post_count': t[7] - 1
+                'post_count': t[7] - 1,
+                'user_id': t[8]
             },
             threads
         )

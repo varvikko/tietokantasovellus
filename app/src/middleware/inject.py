@@ -16,5 +16,5 @@ def inject_boards():
             result.fetchall()
         )
     )
-    return dict(boards=boards, logged_in=('username' in session))
+    return dict(boards=boards, logged_in=('username' in session), uid=session['uid'])
 
