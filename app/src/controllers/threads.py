@@ -1,5 +1,7 @@
 import re
 from datetime import datetime
+from flask import session
+
 from db import db
 from middleware.error import (
     InvalidDataError,
@@ -61,7 +63,7 @@ def extract_replies(content):
 
 def get_threads_from_board(path, offset, count):
     result = db.session.execute('''
-        SELECT T.id
+        (SELECT T.id
         FROM posts AS T
         LEFT JOIN (
             SELECT
@@ -74,7 +76,7 @@ def get_threads_from_board(path, offset, count):
         ON T.id = P.thread_id
         WHERE thread IS NULL AND board = :board
         ORDER BY COALESCE(most_recent, created_at) DESC
-        LIMIT :count OFFSET :offset
+        LIMIT :count OFFSET :offset)
     ''', { 'count': count, 'offset': offset, 'board': path })
 
     thread_ids = list(map(lambda i: i[0], result.fetchall()))
@@ -135,3 +137,10 @@ def get_post_replies(post_id):
 
 def construct_threads(thread_ids, limit):
     return list(map(lambda tid: construct_thread(tid, limit), thread_ids))
+
+def hide_thread(thread_id):
+    db.session.execute('''
+        INSERT INTO hides (user_id, thread)
+        VALUES (:user_id, :thread_id)
+    ''', { 'user_id': session['uid'], 'thread_id': thread_id})
+    db.session.commit()

@@ -41,8 +41,9 @@ def board(board, page=1):
         threads=thread_list,
         page=int(page))
 
-@app.route('/hide', methods=['POST'])
-def hide():
+@app.route('/hide/<thread_id>')
+def hide(thread_id):
+    threads.hide_thread(thread_id)
     return '/hide'
 
 @app.route('/new-thread', methods=['POST'])
