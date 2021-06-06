@@ -63,7 +63,7 @@ def extract_replies(content):
 
 def get_threads_from_board(path, offset, count):
     result = db.session.execute('''
-        (SELECT T.id
+        SELECT T.id
         FROM posts AS T
         LEFT JOIN (
             SELECT
@@ -74,10 +74,17 @@ def get_threads_from_board(path, offset, count):
             GROUP BY thread
         ) AS P
         ON T.id = P.thread_id
-        WHERE thread IS NULL AND board = :board
+        WHERE thread IS NULL
+            AND board = :board
+            AND id NOT IN (
+                SELECT id
+                FROM hides
+                WHERE thread = T.id
+                    AND user_id = :uid
+            )
         ORDER BY COALESCE(most_recent, created_at) DESC
-        LIMIT :count OFFSET :offset)
-    ''', { 'count': count, 'offset': offset, 'board': path })
+        LIMIT :count OFFSET :offset
+    ''', { 'count': count, 'offset': offset, 'board': path, 'uid': session['uid'] })
 
     thread_ids = list(map(lambda i: i[0], result.fetchall()))
     return construct_threads(thread_ids, 5)
@@ -141,6 +148,6 @@ def construct_threads(thread_ids, limit):
 def hide_thread(thread_id):
     db.session.execute('''
         INSERT INTO hides (user_id, thread)
-        VALUES (:user_id, :thread_id)
+        VALUES (:user_id, :thread_id) ON CONFLICT DO NOTHING
     ''', { 'user_id': session['uid'], 'thread_id': thread_id})
     db.session.commit()

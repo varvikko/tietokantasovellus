@@ -80,14 +80,19 @@ def get_stats(uid):
             SELECT COUNT(posts)
             FROM users, posts
             WHERE users.id = :id AND author = :id and thread IS NULL
+        ), (
+            SELECT COUNT(*)
+            FROM hides
+            WHERE user_id = :id
         )
     ''', { 'id': uid }).fetchone()
 
     post_count = result[0]
     thread_count = result[1]
-    print(result, flush=True)
+    hidden_count = result[2]
 
     return {
         'post_count': post_count,
-        'thread_count': thread_count
+        'thread_count': thread_count,
+        'hidden_count': hidden_count
     }

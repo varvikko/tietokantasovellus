@@ -44,7 +44,9 @@ def board(board, page=1):
 @app.route('/hide/<thread_id>')
 def hide(thread_id):
     threads.hide_thread(thread_id)
-    return '/hide'
+
+    return_to = request.args['returnto'] if 'returnto' in request.args else '/'
+    return redirect(return_to)
 
 @app.route('/new-thread', methods=['POST'])
 def new_thread():

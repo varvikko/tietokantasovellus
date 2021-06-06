@@ -59,6 +59,12 @@
                             <p class="bold">No. {{ post['id']}}</p>
                             <p>{{ post['created_at'] }}</p>
                         </div>
+
+                        {% if post.id == thread[0].id %}
+                        <div class="post__header--side">
+                            <a href="/hide/{{ thread[0].id }}?returnto={{board.path}}">[Hide]</a>
+                        </div>
+                        {% endif %}
                     </div>
 
                     <div class="post__body">
