@@ -8,7 +8,7 @@ Jokaiselle foorumille vierailevalle luodaan automaattisesti tunnus. Näin foorum
 
 Omia viestejä ja ketjuja voi poistaa ja muokata. Muiden luomiin viesteihin ja ketjuhin voi vastava ja niitä voi piilottaa. Toisiin viesteihin voi vastata liittämällä omaan viestiin ko. viestin id:n. Käyttäjä voi myös hakea viestejä tietyn hakusanan perusteella.
 
-Käyttäjä voi saada erilaisia ilmoituksia, kuten vastaus viestiin, esto jne. Ilmoitukset voi lukea erillisestä näkymästä ja kuitata luetuiksi.
+~~Käyttäjä voi saada erilaisia ilmoituksia, kuten vastaus viestiin, esto jne. Ilmoitukset voi lukea erillisestä näkymästä ja kuitata luetuiksi.~~
 
 Jokaisella alueella on oma näkymänsä, jossa näkyvät ketjut joihin on viimeisimpänä vastattu. Lisäksi etusivulla näkyvät jokaisen alueen suosituimmat ketjut.
 
