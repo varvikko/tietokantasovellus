@@ -155,3 +155,14 @@ def post(post_id):
     post = posts.get_post(post_id)
 
     return redirect(f'''/thread/{post['thread']}#{post['id']}''')
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        term = request.form['term']
+
+        result = threads.search(term)
+
+        return render_template('result.html', threads=result, term=term)
+    else:
+        return render_template('search.html')

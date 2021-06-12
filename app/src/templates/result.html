@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1 class="search-result-title">
+    Posts containing term '{{ term }}'
+</h1>
+
+{% for thread in threads %}
+    <a href="/post/{{ thread }}" class="reply-link">&gt;&gt;{{ thread }}</a>
+{% endfor %}
+
+{% endblock %}

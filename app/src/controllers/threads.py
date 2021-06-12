@@ -219,3 +219,18 @@ def hide_thread(thread_id):
         VALUES (:user_id, :thread_id) ON CONFLICT DO NOTHING
     ''', { 'user_id': session['uid'], 'thread_id': thread_id})
     db.session.commit()
+
+def search(term):
+    result = db.session.execute('''
+        SELECT id
+        FROM posts
+        WHERE body ILIKE :term
+        ORDER BY id
+    ''', { 'term': '%' + term + '%' }).fetchall()
+
+    return list(
+        map(
+            lambda t: t[0],
+            result
+        )
+    )
