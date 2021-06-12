@@ -1,30 +1,20 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css')}}" />
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="layout">
-    <header class="layout__header">
-        <ul class="layout__boards">
-            <li class="layout__boards--element">
-                <a href="/" class="layout__header--link">
-                    [ home ]
-                </a>
-            </li>
-            {% for board in boards %}
-            <li class="layout__boards--element">
-                <a href="{{board['path']}}" class="layout__header--link">
-                    {{ board['path'] }}
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+    <title>{{ title }}</title>
+</head>
 
-        <div class="layout__user">
-            {% if logged_in %}
-            <a href="/self/logout" class="layout__header--link">logout</a> {% else %}
-            <a href="/register" class="layout__header--link">register</a>
-            <a href="/login" class="layout__header--link">login</a> {% endif %}
-            <a href="/self" class="layout__header--link">profile</a>
-        </div>
-    </header>
+<body>
+    {% include "topbar.html" %}
 
-    {% block content %} {% endblock %}
-</div>
+    <div class="page">
+        {% block content %} {% endblock %}
+    </div>
+</body>
+
+</html>

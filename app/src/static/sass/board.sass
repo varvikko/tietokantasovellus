@@ -1,130 +1,33 @@
 @import 'util.sass'
 
-.board__header
+.board-header
     display: flex
     justify-content: center
     flex-direction: column
     text-align: center
     margin: 2rem 0
 
-.board--title
+.board-title
     color: $font-color
     font-size: 2em
     margin-bottom: 1rem
 
-.board--description
-    font-style: italic
+.board-description
+    font-size: italic
 
-.board__form--new
-    width: 90vw
-    max-width: 40rem
+.no-threads
+    text-align: center
+    padding: 2rem 0
+    color: $font-color
 
-    .form__element
-        display: flex
-        margin-bottom: 1rem
-        width: 100%
-
-    .form__label
-        width: 30%
-        background-color: $highlight-color
-        color: $font-color
-        font-weight: bold
-        display: block
-        margin-right: 1rem
-        padding: .25rem .5rem
-
-    input[type=text]
-        width: 70%
-        padding: .25rem .5rem
-
-    input[type=submit]
-        padding: .25rem .5rem
-
-    textarea
-        width: 70%
-        height: 10em
-        resize: both
-        min-width: 70%
-        min-height: 10em
-        max-width: 75vw
-        max-height: 40em
-
-.form__wrapper
-    display: flex
-    justify-content: center
+.thread-wrapper
     border-bottom: 1px solid $border-color
-    padding-bottom: 2rem
+    padding: 1rem 0
 
-.thread
-    padding: 2em 1em
-    border-bottom: 1px solid $border-color
+    &:last-of-type
+        border-bottom: 0
 
-    +sm
-        padding-right: 2em
-        padding-left: 2em
-
-    +md
-        padding-right: 3em
-        padding-left: 3em
-
-.post
-    overflow: auto
-
-.post__header
-    display: flex
-    justify-content: space-between
-    font-size: 0.8em
-    background-color: $highlight-color
-    padding: .25rem .5rem
-    margin-bottom: 1rem
-    color: $font-color
-
-.post__header--side
-    display: flex
-    column-gap: .5rem
-
-.header--button
-    appearance: none
-    border: none
-    background-color: transparent
-    color: $font-color
-    cursor: pointer
-
-.bold
-    font-weight: bold
-
-.post__image--wrapper
-    width: 10rem
-    height: 7.5rem
-    background-color: $highlight-color
-    float: left
-    clear: left
-    display: flex
-    justify-content: center
-    align-items: center
-    margin-right: 1rem
-    margin-bottom: 1rem
-
-    +sm
-        width: 15rem
-        height: 11.25rem
-
-.post__image
-    max-width: 100%
-    max-height: 100%
-
-.post__content p
-    margin-bottom: 1rem
-    line-height: 1.33
-    color: $font-color
-    word-wrap: break-word
-
-pre
-    white-space: pre-wrap;
-    font-family: $font-family
-    font-size: 14px
-
-.thread__header
+.thread-header
     width: 25%
     min-width: 20em
 
@@ -139,63 +42,12 @@ pre
         color: $font-color
         margin-bottom: .5rem
 
-.board__navigation
-    padding: 1rem 3rem
-
+.board-navigation
     a
         padding: .5rem
         color: $font-color
         text-decoration: none
 
-.current--board
-    background-color: $highlight-color
-    font-weight: bold
-
-.threads--none
-    text-align: center
-    padding: 2rem 0
-    color: $font-color
-
-.thread--replies
-    clear: both
-    font-size: .8em
-    color: $font-color
-    margin-bottom: .5rem
-    margin-left: .5rem
-
-.post--author
-    font-weight: bold
-    color: $user-color
-
-.post__footer
-    font-size: .8em
-    color: $font-color
-    margin-bottom: .5rem
-    margin-left: .5rem
-    clear: both
-
-.replies--title
-    font-weight: bold
-    display: inline
-
-.replies--list
-    display: inline-flex
-    list-style: none
-    flex-wrap: wrap
-
-    li
-        margin-left: .25rem
-
-.reply--link
-    color: blue
-    text-decoration: none
-
-    &:visited
-        color: blue
-
-
-    &:hover
-        color: red
-
-.post__body
-    margin-left: .5rem
+    .current-board
+        background-color: $highlight-color
+        font-weight: bold

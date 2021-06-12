@@ -1,0 +1,79 @@
+@import 'util.sass'
+    
+.userdata-form-wrapper
+    width: 100%
+    
+    display: flex
+    justify-content: center
+
+.userdata-form
+    width: 100%
+    padding: 0 1rem
+
+    +sm
+        width: 75%
+
+    +md
+        width: 50%
+
+    +xl
+        width: 35%
+
+.userdata-form-element
+    width: 100%
+    display: flex
+    flex-direction: column
+    margin-bottom: 1rem
+
+    &:last-of-type
+        margin-bottom: 0
+
+    textarea
+        resize: vertical
+        min-height: 10rem
+        max-height: 20rem
+
+    +sm
+        flex-direction: row
+        align-items: stretch
+
+        textarea
+            flex-basis: calc(100% - 10rem)
+            max-height: 30rem
+
+        input[type='file']
+            flex-basis: calc(100% - 10rem)
+
+.userdata-form-label
+    background-color: $highlight-color
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-basis: 100%
+    margin-right: 0
+    font-weight: bold
+    padding: .5rem 0
+
+    +upto($sm)
+        margin-bottom: 1rem
+
+    +sm
+        flex-basis: 10rem
+        margin-right: .5rem
+
+.userdata-form-submit-button
+    background-color: $highlight-color
+    color: $font-color
+    font-weight: bold
+    font-size: 1.25em
+    padding: .25rem .5rem
+    margin-top: 1rem
+    border-radius: .25rem
+    appearance: none
+    border: none
+    width: 100%
+    transition-duration: 150ms
+
+    &:hover
+        color: $highlight-color
+        background-color: $font-color

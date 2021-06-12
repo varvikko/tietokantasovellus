@@ -1,0 +1,18 @@
+<div class="userdata-form-wrapper">
+    <form class="userdata-form" action="{{ action }}" method="POST" enctype="multipart/form-data">
+        <div class="userdata-form-element">
+            <label for="board-content" class="userdata-form-label">
+                Content
+            </label>
+            <textarea id="board-content" name="content"></textarea>
+        </div>
+
+        <div class="userdata-form-element">
+            <label for="board-image" class="userdata-form-label">Image</label>
+            <input type="file" id="board-image" name="image" />
+        </div>
+
+        <input type="hidden" value="{{ hidden_value }}" name="{{ type }}" />
+        <input type="submit" value="{{ button_text }}" class="userdata-form-submit-button" />
+    </form>
+</div>

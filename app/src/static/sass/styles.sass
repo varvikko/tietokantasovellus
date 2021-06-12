@@ -1,0 +1,28 @@
+@import 'board.sass'
+@import 'error.sass'
+@import 'index.sass'
+@import 'layout.sass'
+@import 'page.sass'
+@import 'post.sass'
+@import 'userdata_form.sass'
+
+.register-form-wrapper,
+.login-form-wrapper
+    display: flex
+    align-items: center
+    flex-direction: column
+
+    h1
+        margin-bottom: 1rem
+
+.register-form,
+.login-form
+    display: flex
+    flex-direction: column
+    row-gap: 1rem
+
+    input[type=text],
+    input[type=password]
+        border: none
+        padding: .25rem .5rem
+        outline: none

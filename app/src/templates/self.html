@@ -1,29 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %}
+{% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
+<h1>Profile</h1>
 
-<body>
-    {% extends "layout.html" %} {% block content %}
-    <h1>Profile</h1>
-
-    <div>
-        <p>User ID: {{ uid }}</p>
-        {% if username %}
+<div>
+    <p>User ID: {{ uid }}</p>
+    {% if username %}
         <p>Username: {{ username }}</p>
-        {% endif %}
-    </div>
+    {% endif %}
+</div>
 
-    <ul>
-        <li><a href="/self/stats">Statistics</a></li>
-    </ul>
+<ul>
+    <li>
+        <a href="/self/stats">
+            Statistics
+        </a>
+    </li>
+</ul>
 
-    {% endblock %}
-</body>
-
-</html>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="thread-page">
+    {% set parent="thread" %}
+    {% include "thread.html" %}
+
+    {% with %}
+        {% set action = "/reply" %}
+        {% set hidden_value = thread[0].id %}
+        {% set type = "thread" %}
+        {% set button_text = "Send post" %}
+        {% include "userdata_form.html" %}
+    {% endwith %}
+</div>
+
+{% endblock %}

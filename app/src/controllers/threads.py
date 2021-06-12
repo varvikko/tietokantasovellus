@@ -11,7 +11,7 @@ from middleware.error import (
 def create_thread(content, board, author, image_id=None):
     if not content:
         raise InvalidDataError('Thread must have content.')
-
+    
     result = db.session.execute('''
         INSERT INTO posts (board, author, body, image, created_at)
         VALUES (:board, :author, :body, :image, current_timestamp)
@@ -89,17 +89,76 @@ def get_threads_from_board(path, offset, count):
     thread_ids = list(map(lambda i: i[0], result.fetchall()))
     return construct_threads(thread_ids, 5)
 
+def get_most_popular_threads(n):
+    result = db.session.execute('''
+        SELECT T.id, T.body, B.name, B.path
+        FROM posts AS T
+        LEFT JOIN (
+            SELECT thread, COUNT(*) AS post_count
+            FROM posts
+            WHERE thread IS NOT NULL AND created_at > NOW() - INTERVAL '1 DAY'
+            GROUP BY thread
+        ) AS P
+        ON T.id = P.thread
+        LEFT JOIN boards AS B
+        ON T.board = B.path
+        WHERE T.thread IS NULL AND P.post_count IS NOT NULL
+        ORDER BY P.post_count DESC
+        LIMIT :thread_count
+    ''', { 'thread_count': n })
+
+    return list(
+        map(
+            lambda t: {
+                'id': t[0],
+                'body': t[1],
+                'board_name': t[2],
+                'board_path': t[3]
+            }, result.fetchall()
+        )
+    )
+
+def get_most_recent_threads(n):
+    result = db.session.execute('''
+        SELECT T.id, T.body, B.name, B.path
+        FROM posts AS T
+        LEFT JOIN boards AS B
+        ON T.board = B.path
+        WHERE thread IS NULL
+        ORDER BY created_at DESC
+        LIMIT :thread_count
+    ''', { 'thread_count': n })
+
+    return list(
+        map(
+            lambda t: {
+                'id': t[0],
+                'body': t[1],
+                'board_name': t[2],
+                'board_path': t[3]
+            }, result.fetchall()
+        )
+    )
+
 def get_thread(thread_id):
     return construct_thread(thread_id)
 
 def construct_thread(thread_id, limit=None):
     result = db.session.execute(f'''
-        SELECT posts.id, body, image, created_at, edited, filename, users.name, COUNT(*) OVER() AS post_count, users.id
+        SELECT
+            posts.id,
+            body, image,
+            created_at,
+            edited,
+            filename,
+            users.name,
+            COUNT(*) OVER() AS post_count,
+            users.id
         FROM posts
         LEFT JOIN images
         ON posts.image = images.id
         LEFT JOIN users
-        on posts.author = users.id
+        ON posts.author = users.id
         WHERE thread = :id OR posts.id = :id
         ORDER BY created_at ASC
         {f'LIMIT {limit}' if limit else ''}

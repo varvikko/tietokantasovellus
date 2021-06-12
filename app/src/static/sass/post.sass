@@ -1,0 +1,98 @@
+@import 'util.sass'
+    
+.post
+    overflow: auto
+
+.post-header
+    display: flex
+    justify-content: space-between
+    font-size: .8em
+    background-color: $highlight-color
+    padding: .25rem .5rem
+    margin-bottom: 1rem
+    color: $font-color
+
+.post-header-side
+    display: flex
+    column-gap: .5rem
+
+.post-author
+    font-weight: bold
+    color: $user-color
+
+.post-id
+    font-weight: bold
+
+.header-button
+    appearance: none
+    border: none
+    background-color: transparent
+    color: $font-color
+    cursor: pointer
+    text-decoration: none
+
+.post-body
+    margin-left: .5rem
+
+.post-image-wrapper
+    width: 10rem
+    height: 7.5rem
+    background-color: $highlight-color
+    float: left
+    clear: left
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-right: 1rem
+    margin-bottom: 1rem
+
+    +sm
+        width: 15rem
+        height: 11.25rem
+
+.post-image
+    max-width: 100%
+    max-height: 100%
+
+.post-content
+    margin-bottom: 1rem
+    line-height: 1.33
+    color: $font-color
+    word-wrap: break-word
+
+.post-reply-link,
+.reply-link
+    color: blue
+    text-decoration: none
+
+    &:visited
+        color: blue
+
+    &:hover
+        text-decoration: underline
+
+.post-footer
+    font-size: .8rem
+    color: $font-color
+    margin-bottom: .5rem
+    margin-left: .5rem
+    clear: both
+
+.reply-links-title
+    font-weight: bold
+    display: inline
+
+.reply-links-list
+    display: inline-flex
+    list-style: none
+    flex-wrap: wrap
+
+    li
+        margin-left: .25rem
+
+.reply-count
+    clear: both
+    font-size: .8em
+    color: $font-color
+    margin-bottom: .5rem
+    margin-left: .5rem

@@ -1,18 +1,18 @@
 @import 'util.sass'
 
-.index__content
+.index-content
     display: flex
     align-items: center
     flex-direction: column
 
-.index__boards--title
+.index-boards-title
     color: $font-color
     font-size: 2.5em
     font-weight: bold
     text-align: center
     padding: 2rem 0
 
-.index__boards
+.index-boards
     padding: 0 2rem
     max-width: $md
     list-style: none
@@ -22,10 +22,41 @@
     display: flex
     flex-wrap: wrap
 
-.index--link
+.index-link
     text-decoration: none
     color: $font-color
     white-space: nowrap
 
     &:hover
         color: darken($font-color, 15%)
+
+.index-thread-listings
+    display: flex
+    flex-direction: column
+    +gap-x(5rem)
+
+    +md
+        flex-direction: row
+
+.popular-thread
+    display: flex
+
+.popular-thread-board-name
+    text-decoration: none
+    font-weight: bold
+    color: $user-color
+
+    &:hover
+        color: $link-hover-color
+
+.popular-thread-body
+    text-decoration: none
+    color: $font-color
+    width: 20rem
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    margin-left: .5rem
+
+    &:hover
+        color: $link-hover-color

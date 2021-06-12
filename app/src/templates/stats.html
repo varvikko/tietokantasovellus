@@ -1,24 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %}
+{% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
+<h1>Statistics</h1>
 
-<body>
-    {% extends "layout.html" %} {% block content %}
-    <h1>Statistics</h1>
+<div>
+    <p>Threads started: {{ stats.thread_count }}</p>
+    <p>Posts sent: {{ stats.post_count }}</p>
+    <p>Threads hidden: {{ stats.hidden_count }}</p>
+</div>
 
-    <div>
-        <p>Threads started: {{ stats['thread_count'] }}</p>
-        <p>Posts sent: {{ stats['post_count'] }}</p>
-        <p>Threads hidden: {{ stats['hidden_count'] }}</p>
-    </div>
-
-    {% endblock %}
-</body>
-
-</html>
+{% endblock %}

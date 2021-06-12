@@ -13,14 +13,20 @@ from middleware.ensure_author import author_required
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+
+    popular_threads = threads.get_most_popular_threads(10)
+    recent_threads = threads.get_most_recent_threads(10)
+
+    return render_template('index.html',
+        popular_threads=popular_threads,
+        recent_threads=recent_threads)
 
 @app.route('/thread/<thread_id>')
 def thread(thread_id):
 
     thread_obj = threads.get_thread(thread_id)
 
-    return render_template('thread.html', thread=thread_obj)
+    return render_template('thread_page.html', thread=thread_obj)
 
 @app.route('/<board>')
 @app.route('/<board>/<page>')
