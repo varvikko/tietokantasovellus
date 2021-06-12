@@ -1,5 +1,8 @@
 from db import db
-from middleware.error import NotFoundError
+from middleware.error import (
+    NotFoundError,
+    InvalidDataError
+)
 
 def get_post(post_id):
     result = db.session.execute('''
@@ -17,6 +20,18 @@ def get_post(post_id):
         'content': post[1],
         'thread': post[2] or post[0]
     }
+
+def update(post_id, content):
+    if not content:
+        raise InvalidDataError('Post cannot have empty body.')
+
+    db.session.execute('''
+        UPDATE posts
+        SET body = :content, edited = true
+        WHERE id = :id
+    ''', { 'id': post_id, 'content': content })
+
+    db.session.commit()
 
 def delete(post_id):
     db.session.execute('''

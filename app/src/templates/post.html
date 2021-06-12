@@ -7,71 +7,61 @@
 
             <p class="post-id">No. {{ post.id }}</p>
             <p>{{ post.created_at }}</p>
+            {% if post.edited %}
+            <p class="post-edited">Edited</p>
+            {% endif %}
         </div>
 
         {% if parent == "thread" %}
-            <div class="post-header-side">
-                <button class="header-button">[ Reply ]</button>
-                {% if uid == post.user_id %}
-                <a href="/delete/{{ post.id }}" class="header-button">[ Delete ]</a>
-                {% endif %}
-            </div>
-        {% else %}
-            {% if post.id == thread[0].id %}
-                <div class="post-header-side">
-                    <a href="/hide/{{ thread[0].id }}?returnto={{board.path}}">[ Hide ]</a>
-                </div>
+        <div class="post-header-side">
+            <button class="header-button">[ Reply ]</button>
+            {% if uid == post.user_id %}
+            <a href="/delete/{{ post.id }}" class="header-button">[ Delete ]</a>
+            <button class="header-button" onclick="open_post_edit_view(`{{ post.body }}`, {{ post.id}})">[ Edit ]</button>
             {% endif %}
-        {% endif %}
+        </div>
+        {% else %} {% if post.id == thread[0].id %}
+        <div class="post-header-side">
+            <a href="/hide/{{ thread[0].id }}?returnto={{ board.path }}">[ Hide ]</a>
+        </div>
+        {% endif %} {% endif %}
     </div>
 
     <div class="post-body">
         {% if post.filename %}
-            <div class="post-image-wrapper">
-                <img class="post-image" src="/i/{{ post.filename }}" />
-            </div>
+        <div class="post-image-wrapper">
+            <img class="post-image" src="/i/{{ post.filename }}" />
+        </div>
         {% endif %}
 
         <p class="post-content">
-            {% for line in post.body.splitlines() %}
-                {% for split in line | split %}
-                    {%- if split.url -%}
-                        <a class="post-reply-link" href="/post/{{ split.content[2:] }}">
+            {% for line in post.body.splitlines() %} {% for split in line | split %} {%- if split.url -%}
+            <a class="post-reply-link" href="/post/{{ split.content[2:] }}">
                             {{ split.content }}
-                        </a>
-                    {%- else -%}
-                        {{ split.content }}
-                    {%- endif -%}
-                {% endfor %}
+                        </a> {%- else -%} {{ split.content }} {%- endif -%} {% endfor %}
 
-                <br />
-            {% endfor %}
+            <br /> {% endfor %}
         </p>
     </div>
 
     <div class="post-footer">
         {% if post.replies %}
-            <p class="reply-links-title">Replies:</p>
-            <ul class="reply-links-list">
-                {% for reply in post.replies %}
-                    <li>
-                        <a class="reply-link" href="/post/{{ reply }}">
+        <p class="reply-links-title">Replies:</p>
+        <ul class="reply-links-list">
+            {% for reply in post.replies %}
+            <li>
+                <a class="reply-link" href="/post/{{ reply }}">
                             &gt;&gt;{{ reply }}
                         </a>
-                    </li>
-                {% endfor %}
-            </ul>
+            </li>
+            {% endfor %}
+        </ul>
         {% endif %}
     </div>
 
     {% if post == thread[0] %}
-        <div class="reply-count">
-            {{ thread[0].post_count }}
-            {% if thread[0].post_count == 1 %}
-                reply
-            {% else %}
-                replies
-            {% endif %}
-        </div>
+    <div class="reply-count">
+        {{ thread[0].post_count }} {% if thread[0].post_count == 1 %} reply {% else %} replies {% endif %}
+    </div>
     {% endif %}
 </div>

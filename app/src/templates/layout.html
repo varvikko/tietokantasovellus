@@ -15,6 +15,36 @@
     <div class="page">
         {% block content %} {% endblock %}
     </div>
+
+    <script>
+        const post_edit_view = document.querySelector('.edit-post-wrapper')
+        const edit_area = document.querySelector('.edit-post-area')
+        let id = null
+
+        function open_post_edit_view(content, _id) {
+            if (!post_edit_view.classList.contains('open')) {
+                post_edit_view.classList.add('open')
+                edit_area.textContent = content
+                id = _id
+            }
+        }
+
+        function close_post_edit_view() {
+            post_edit_view.classList.remove('open')
+        }
+
+        function save_post() {
+            fetch(`/edit-post/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    content: edit_area.value
+                })
+            }).then(() => location.reload())
+        }
+    </script>
 </body>
 
 </html>

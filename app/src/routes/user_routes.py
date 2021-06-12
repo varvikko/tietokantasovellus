@@ -78,9 +78,14 @@ def reply():
 
     return redirect(f'/thread/{thread_id}')
 
-@app.route('/edit-post', methods=['POST'])
-def edit_post():
-    return '/edit-post'
+@app.route('/edit-post/<post_id>', methods=['PUT'])
+@author_required
+def edit_post(post_id):
+    content = request.json['content']
+
+    posts.update(post_id, content)
+
+    return redirect('/')
 
 @app.route('/delete/<post_id>')
 @author_required
