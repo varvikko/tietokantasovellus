@@ -15,6 +15,11 @@
         <a href="/self/stats">
             Statistics
         </a>
+        {% if role == 'admin' %}
+        <a href="/admin">
+            Admin panel
+        </a>
+        {% endif %}
     </li>
 </ul>
 

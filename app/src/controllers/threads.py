@@ -2,16 +2,22 @@ import re
 from datetime import datetime
 from flask import session
 
+from controllers import users
 from db import db
 from middleware.error import (
     InvalidDataError,
-    NotFoundError
+    NotFoundError,
+    AccessDeniedError
 )
 
 def create_thread(content, board, author, image_id=None):
     if not content:
         raise InvalidDataError('Thread must have content.')
-    
+
+    if users.is_banned(author):
+        ban_details = users.get_ban_details(author)
+        raise AccessDeniedError(f'You are banned. Reason: {ban_details["reason"]}. Ban will end on {ban_details["ends_at"]}')
+
     result = db.session.execute('''
         INSERT INTO posts (board, author, body, image, created_at)
         VALUES (:board, :author, :body, :image, current_timestamp)
@@ -26,6 +32,9 @@ def create_thread(content, board, author, image_id=None):
 def reply(thread_id, content, author, image_id=None):
     if not content:
         raise InvalidDataError('Post must have content.')
+
+    if users.is_banned(author):
+        raise AccessDeniedError('You are banned')
 
     result = db.session.execute('''
         INSERT INTO posts (board, thread, author, body, image, created_at)

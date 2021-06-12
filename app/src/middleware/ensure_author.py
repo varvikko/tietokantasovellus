@@ -2,7 +2,7 @@ from functools import wraps
 from flask import session
 
 from db import db
-from middleware.error import AccessDeniedError
+from middleware.error import AccessDeniedError, NotFoundError
 
 def author_required(func):
     @wraps(func)
@@ -20,4 +20,13 @@ def author_required(func):
             raise AccessDeniedError('You are not allowed to remove this post.')
 
         return func(post_id)
+    return decorated
+
+def admin_required(func):
+    @wraps(func)
+    def decorated():
+        if session['role'] != 'admin':
+            raise NotFoundError('Page not found')
+
+        return func()
     return decorated

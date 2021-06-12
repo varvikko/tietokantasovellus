@@ -24,6 +24,29 @@ def is_registered(uid):
         WHERE id = :id
     ''', { 'id': uid }).fetchone()[0]
 
+def is_banned(uid):
+    return db.session.execute('''
+        SELECT users.id IN (
+            SELECT user_id
+            FROM bans
+            WHERE ends_at > NOW()
+        )
+        FROM users
+        WHERE users.id = :uid
+    ''', { 'uid': uid }).fetchone()[0]
+
+def get_ban_details(uid):
+    result = db.session.execute('''
+        SELECT reason, ends_at
+        FROM bans
+        WHERE user_id = :uid AND ends_at > NOW()
+    ''', { 'uid': uid }).fetchone()
+
+    return {
+        'reason': result[0],
+        'ends_at': result[1]
+    }
+
 def register_user(username, password):
     if user_exists(username):
         raise InvalidDataError('Username is already taken.')

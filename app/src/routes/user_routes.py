@@ -97,7 +97,7 @@ def delete_post(post_id):
 @app.route('/self')
 def self():
     return render_template('self.html', uid=session['uid'],
-        username=session['username'] if 'username' in session else None)
+        username=session['username'] if 'username' in session else None, role=session['role'])
 
 @app.route('/self/stats')
 def stats():
