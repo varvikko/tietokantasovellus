@@ -15,9 +15,18 @@ def create_user():
     session['uid'] = uid
     session['role'] = 'anon'
 
+def valid_user(uid):
+    return db.session.execute('''
+        SELECT :uid IN (SELECT id FROM users)
+    ''', { 'uid': uid }).fetchone()[0]
+
 @app.before_request
 def validate_user():
     if not 'uid' in session:
+        create_user()
+
+    if not valid_user(session['uid']):
+        session.clear()
         create_user()
 
     if session['role'] != 'anon' and not 'username' in session:
