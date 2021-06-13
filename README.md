@@ -17,6 +17,7 @@ Ylläpitäjä voi poistaa minkä tahansa ketjun tai viestin. Lisäksi ylläpitä
 # Sovelluksen tila
 
 Sovellukseen on toteutettu keskeiset toiminnot, kuten ketjujen luonti ja vastausten lähetys sekä rekisteröinti ja kirjautuminen.
+Lisäksi omia viestejä voi muokata ja poistaa sekä toisiin viesteihin voi vastata ja ketjuja voi piilottaa.
 
 # Deployment
 
