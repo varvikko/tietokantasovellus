@@ -10,6 +10,7 @@ from controllers import posts
 from db import db
 from middleware.error import NotFoundError
 from middleware.ensure_author import author_required
+from middleware.check_csrf import check_csrf
 
 @app.route('/')
 def index():
@@ -23,6 +24,8 @@ def index():
 
 @app.route('/thread/<thread_id>')
 def thread(thread_id):
+    if not isinstance(thread_id, int):
+        raise NotFoundError('Invalid thread id.')
 
     thread_obj = threads.get_thread(thread_id)
 
@@ -55,6 +58,7 @@ def hide(thread_id):
     return redirect(return_to)
 
 @app.route('/new-thread', methods=['POST'])
+@check_csrf
 def new_thread():
     image_id = images.add_image(request.files['image'])
 
@@ -67,6 +71,7 @@ def new_thread():
     return redirect(board)
 
 @app.route('/reply', methods=['POST'])
+@check_csrf
 def reply():
     image_id = images.add_image(request.files['image'])
     content = request.form['content']

@@ -18,3 +18,6 @@ def inject_boards():
     )
     return dict(boards=boards, logged_in=('username' in session), uid=session['uid'])
 
+@app.context_processor
+def inject_csrf_token():
+    return dict(csrf_token=session['csrf_token'])

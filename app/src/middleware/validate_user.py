@@ -14,6 +14,7 @@ def create_user():
     uid = result.fetchone()[0]
     session['uid'] = uid
     session['role'] = 'anon'
+    session['csrf_token'] = secrets.token_hex(16)
 
 def valid_user(uid):
     return db.session.execute('''
