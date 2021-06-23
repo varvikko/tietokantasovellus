@@ -16,7 +16,7 @@ def inject_boards():
             result.fetchall()
         )
     )
-    return dict(boards=boards, logged_in=('username' in session), uid=session['uid'])
+    return dict(boards=boards, logged_in=('username' in session), uid=session['uid'], role=session['role'])
 
 @app.context_processor
 def inject_csrf_token():

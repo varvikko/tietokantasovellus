@@ -15,7 +15,7 @@
         {% if parent == "thread" %}
         <div class="post-header-side">
             <button class="header-button">[ Reply ]</button>
-            {% if uid == post.user_id %}
+            {% if uid == post.user_id or role == 'admin' %}
             <a href="/delete/{{ post.id }}" class="header-button">[ Delete ]</a>
             <button class="header-button" onclick="open_post_edit_view(`{{ post.body }}`, {{ post.id}})">[ Edit ]</button>
             {% endif %}
