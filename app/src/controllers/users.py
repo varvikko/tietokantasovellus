@@ -70,6 +70,12 @@ def set_permission(uid, state):
     db.session.commit()
 
 def register_user(username, password):
+    if not username:
+        raise InvalidDataError('Username can not be empty.')
+
+    if not password or len(password) > 5:
+        raise InvalidDataError('Minimum password length is 5.')
+
     if user_exists(username):
         raise InvalidDataError('Username is already taken.')
 
