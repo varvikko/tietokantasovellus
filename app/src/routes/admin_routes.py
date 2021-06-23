@@ -1,10 +1,16 @@
+from flask import render_template, request, redirect
+
 from app import app
+from controllers import boards
+from controllers import users
 from middleware.ensure_author import admin_required
+from middleware.check_csrf import check_csrf
+from middleware.error import InvalidDataError
 
 @app.route('/admin')
 @admin_required
 def admin():
-    return '/admin'
+    return render_template('admin.html')
 
 @app.route('/admin/bans')
 @admin_required
@@ -18,18 +24,43 @@ def reports():
 
 @app.route('/admin/ban', methods=['POST'])
 @admin_required
+@check_csrf
 def ban():
-    return '/admin/ban'
+    uid = request.form['user-id']
+    reason = request.form['reason']
+    
+    if not uid:
+        raise InvalidDataError('User ID is missing.')
+
+    if not reason:
+        raise InvalidDataError('Ban reason is missing.')
+
+    try:
+        duration = int(request.form['duration'])
+    except ValueError:
+        raise InvalidDataError('Invalid ban duration.')
+
+    users.ban(uid, reason, duration)
+
+    return redirect('/admin')
 
 @app.route('/admin/ban/edit', methods=['POST'])
 @admin_required
 def edit_ban():
     return '/admin/ban/edit'
 
-@app.route('/admin/ban/cancel', methods=['POST'])
+@app.route('/unban', methods=['POST'])
 @admin_required
-def cancel_ban():
-    return '/admin/ban/cancel'
+@check_csrf
+def unban():
+    uid = request.form['user-id']
+
+    if not uid:
+        raise InvalidDataError('User ID is missing.')
+
+    users.unban(uid)
+
+    return redirect('/admin')
 
 @app.route('/admin/solve-report', methods=['POST'])
 @admin_required
@@ -38,10 +69,30 @@ def solve_report():
 
 @app.route('/admin/new-board', methods=['POST'])
 @admin_required
+@check_csrf
 def new_board():
-    return '/admin/new-board'
+    path = request.form['board-path']
+    name = request.form['board-name']
+    description = request.form['board-description']
 
-@app.route('/admin/delete-board', methods=['POST'])
+    boards.create_board(path, name, description)
+
+    return redirect('/admin')
+
+@app.route('/admin/delete-board/<board_path>')
 @admin_required
-def delete_board():
-    return '/admin/delete-board'
+def delete_board(board_path):
+    boards.delete_board(board_path)
+
+    return redirect('/admin')
+
+@app.route('/admin/permissions', methods=['POST'])
+@admin_required
+@check_csrf
+def permissions():
+    uid = request.form['user-id']
+    state = request.form['permission']
+
+    users.set_permission(uid, state)
+
+    return redirect('/admin')

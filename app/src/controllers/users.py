@@ -47,6 +47,28 @@ def get_ban_details(uid):
         'ends_at': result[1]
     }
 
+def ban(uid, reason, duration):
+    db.session.execute('''
+        INSERT INTO bans (user_id, reason, started_at, ends_at)
+        VALUES (:user_id, :reason, current_timestamp, NOW() + INTERVAL ':duration DAYS')
+    ''', { 'user_id': uid, 'reason': reason, 'duration': duration })
+    db.session.commit()
+
+def unban(uid):
+    db.session.execute('''
+        DELETE FROM bans
+        WHERE user_id = :user_id
+    ''', { 'user_id': uid })
+    db.session.commit()
+
+def set_permission(uid, state):
+    db.session.execute('''
+        UPDATE users
+        SET role = :role
+        WHERE id = :uid AND role <> 'anon'
+    ''', { 'role': state, 'uid': uid })
+    db.session.commit()
+
 def register_user(username, password):
     if user_exists(username):
         raise InvalidDataError('Username is already taken.')
@@ -88,7 +110,7 @@ def login(username, password):
 
     session['username'] = username
     session['role'] = result[3]
-    session['uid'] = result[2] 
+    session['uid'] = result[2]
 
 def logout():
     session.clear()

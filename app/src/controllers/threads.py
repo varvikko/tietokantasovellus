@@ -34,7 +34,8 @@ def reply(thread_id, content, author, image_id=None):
         raise InvalidDataError('Post must have content.')
 
     if users.is_banned(author):
-        raise AccessDeniedError('You are banned')
+        ban_details = users.get_ban_details(author)
+        raise AccessDeniedError(f'You are banned. Reason: {ban_details["reason"]}. Ban will end on {ban_details["ends_at"]}')
 
     result = db.session.execute('''
         INSERT INTO posts (board, thread, author, body, image, created_at)

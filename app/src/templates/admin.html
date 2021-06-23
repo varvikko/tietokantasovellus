@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Admin Panel</h1>
+
+<div>
+    <div class="admin-section">
+        <h2>Bans</h2>
+        <form action="/admin/ban" method="POST">
+            <input type="text" name="user-id" id="user-id" placeholder="User ID" />
+            <input type="number" name="duration" placeholder="Days" min="1" />
+            <input type="text" name="reason" placeholder="Reason" />
+
+            <input type="submit" value="Ban" />
+            <input type="hidden" value="{{ csrf_token }}" name="csrf_token" />
+        </form>
+
+        <form action="/unban" method="POST">
+            <input type="text" name="user-id" id="unban-user-id" placeholder="User ID" />
+            <input type="submit" value="Unban" />
+            <input type="hidden" value="{{ csrf_token }}" name="csrf_token" />
+        </form>
+    </div>
+
+    <div class="admin-section">
+        <h2>Boards</h2>
+
+        <ul class="boards-list">
+            {% for board in boards %}
+                <li>
+                    {{ board.path }} - {{ board.name }}
+                    <a href="/admin/delete-board{{ board.path }}">Remove</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <form action="/admin/new-board" method="POST">
+            <input type="text" name="board-path" id="board-path" placeholder="Board path" />
+            <input type="text" name="board-name" id="board-name" placeholder="Board name" />
+            <input type="text" name="board-description" id="board-description" placeholder="Board description" />
+            <input type="submit" value="Create" />
+            <input type="hidden" value="{{ csrf_token }}" name="csrf_token" />
+        </form>
+    </div>
+
+    <div class="admin-section">
+        <h2>Permissions</h2>
+
+        <form action="/admin/permissions" method="POST">
+            <input type="text" name="user-id" id="permission-user-id" placeholder="User ID" />
+            
+            <label for="registered">Registered</label>
+            <input type="radio" name="permission" id="registered" value="registered" />
+
+            <label for="admin">Admin</label>
+            <input type="radio" name="permission" id="admin" value="admin" />
+
+            <input type="submit" value="Update" />
+            <input type="hidden" value="{{ csrf_token }}" name="csrf_token" />
+        </form>
+    </div>
+</div>
+
+{% endblock %}

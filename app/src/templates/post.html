@@ -38,7 +38,7 @@
             {% for line in post.body.splitlines() %} {% for split in line | split %} {%- if split.url -%}
             <a class="post-reply-link" href="/post/{{ split.content[2:] }}">
                             {{ split.content }}
-                        </a> {%- else -%} {{ split.content }} {%- endif -%} {% endfor %}
+                        </a> {% elif split.greentext %} <span style="color: green">{{ split.content}}</span>{%- else -%} {{ split.content }} {%- endif -%} {% endfor %}
 
             <br /> {% endfor %}
         </p>

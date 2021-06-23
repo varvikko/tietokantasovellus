@@ -24,7 +24,9 @@ def index():
 
 @app.route('/thread/<thread_id>')
 def thread(thread_id):
-    if not isinstance(thread_id, int):
+    try:
+        thread_id = int(thread_id)
+    except ValueError:
         raise NotFoundError('Invalid thread id.')
 
     thread_obj = threads.get_thread(thread_id)

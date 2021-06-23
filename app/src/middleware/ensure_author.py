@@ -24,9 +24,9 @@ def author_required(func):
 
 def admin_required(func):
     @wraps(func)
-    def decorated():
+    def decorated(*args, **kwargs):
         if session['role'] != 'admin':
             raise NotFoundError('Page not found')
 
-        return func()
+        return func(*args, **kwargs)
     return decorated
