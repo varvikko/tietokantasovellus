@@ -113,14 +113,6 @@ def stats():
 
     return render_template('stats.html', stats=stats)
 
-@app.route('/self/settings')
-def settings():
-    return '/self/settings'
-
-@app.route('/self/settings/save', methods=['POST'])
-def save_settings():
-    return '/self/settings/save'
-
 @app.route('/self/logout')
 def logout():
     users.logout()

@@ -12,16 +12,6 @@ from middleware.error import InvalidDataError
 def admin():
     return render_template('admin.html')
 
-@app.route('/admin/bans')
-@admin_required
-def bans():
-    return '/admin/bans'
-
-@app.route('/admin/reports')
-@admin_required
-def reports():
-    return '/admin/reports'
-
 @app.route('/admin/ban', methods=['POST'])
 @admin_required
 @check_csrf
@@ -44,11 +34,6 @@ def ban():
 
     return redirect('/admin')
 
-@app.route('/admin/ban/edit', methods=['POST'])
-@admin_required
-def edit_ban():
-    return '/admin/ban/edit'
-
 @app.route('/unban', methods=['POST'])
 @admin_required
 @check_csrf
@@ -61,11 +46,6 @@ def unban():
     users.unban(uid)
 
     return redirect('/admin')
-
-@app.route('/admin/solve-report', methods=['POST'])
-@admin_required
-def solve_report():
-    return '/admin/solve-report'
 
 @app.route('/admin/new-board', methods=['POST'])
 @admin_required
