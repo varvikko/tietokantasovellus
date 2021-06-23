@@ -112,6 +112,17 @@
   flex-grow: 1;
   padding: .25rem .5rem; }
 
+.open-thread-button {
+  padding: .25rem .5rem;
+  background-color: #EDE6E3;
+  color: #36382E;
+  display: inline-block;
+  font-size: .8em;
+  font-weight: bold;
+  text-decoration: none; }
+  .open-thread-button:hover {
+    background-color: #e3d8d3; }
+
 /* Breakpoints */
 /* Mixins */
 /* Layout values */

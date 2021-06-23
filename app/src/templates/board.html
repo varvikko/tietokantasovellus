@@ -32,6 +32,8 @@
                 </div>
 
                 {% include "thread.html" %}
+
+                <a href="/thread/{{ thread[0].id }}" class="open-thread-button">Open thread</a>
             </div>
         {% endfor %}
     </div>
