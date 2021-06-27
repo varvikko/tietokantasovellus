@@ -25,6 +25,9 @@ def update(post_id, content):
     if not content:
         raise InvalidDataError('Post cannot have empty body.')
 
+    if len(content) > 2048:
+        raise InvalidDataError('Post is too long.')
+
     db.session.execute('''
         UPDATE posts
         SET body = :content, edited = true
