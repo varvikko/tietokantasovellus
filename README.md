@@ -2,6 +2,8 @@ https://tsohachan.herokuapp.com/
 
 # Kuvafoorumi
 
+## Käyttö
+
 Kyseessä on keskustelufoorumi, jossa viesteihin voi lisäksi liittää kuvan, eli ns. kuvafoorumi. Foorumia voi katsella ja viestejä voi lähettää kuka tahansa anonyymisti. Lisäksi foorumiin voi luoda oman tunnuksen. Foorumilla on erilaisia keskustelualueita. Jokainen lanka (ketju) ja viesti kuuluu jollekin alueelle.
 
 Jokaiselle foorumille vierailevalle luodaan automaattisesti tunnus. Näin foorumin käyttö onnistuu myös ilman rekisteröintiä. Luomalla tunnuksen voi kuitenkin määritellä haluamansa käyttäjätunnuksen ja salasanan. Anonyymit käyttäjät tunnistetaan cookien talletettavan id:n perusteella, joten ne häviävät mikäli mikäli evästeet tyhjennetään. Rekisteröidylle tunnukselle voi kirjautua aina.
