@@ -107,12 +107,12 @@ def login(username, password):
 
     user_exists = bool(result[0])
     if not user_exists:
-        raise Exception('Username or password is invalid.')
+        raise InvalidCredentialsError('Username or password is invalid.')
     password_hash = result[1]
 
     correct_passwd = bcrypt.checkpw(password, password_hash.encode(encoding='UTF-8'))
     if not correct_passwd:
-        raise Exception('Username or password is invalid.')
+        raise InvalidCredentialsError('Username or password is invalid.')
 
     session['username'] = username
     session['role'] = result[3]
