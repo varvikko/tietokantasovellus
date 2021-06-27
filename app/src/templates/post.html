@@ -14,15 +14,18 @@
 
         {% if parent == "thread" %}
         <div class="post-header-side">
-            <button class="header-button">[ Reply ]</button>
             {% if uid == post.user_id or role == 'admin' %}
-            <a href="/delete/{{ post.id }}" class="header-button">[ Delete ]</a>
-            <button class="header-button" onclick="open_post_edit_view(`{{ post.body }}`, {{ post.id}})">[ Edit ]</button>
+            <a href="/delete/{{ post.id }}" class="header-button">[ del ]</a>
+            <button class="header-button" onclick="open_post_edit_view(`{{ post.body }}`, {{ post.id}})">[ edit ]</button>
+            {% endif %}
+
+            {% if role == 'admin' %}
+                (uid: {{ post.user_id }})
             {% endif %}
         </div>
         {% else %} {% if post.id == thread[0].id %}
         <div class="post-header-side">
-            <a href="/hide/{{ thread[0].id }}?returnto={{ board.path }}">[ Hide ]</a>
+            <a href="/hide/{{ thread[0].id }}?returnto={{ board.path }}" class="header-button">[ hide ]</a>
         </div>
         {% endif %} {% endif %}
     </div>

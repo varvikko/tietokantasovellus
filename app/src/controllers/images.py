@@ -1,6 +1,7 @@
 import secrets
 
 from db import db
+from middleware.error import InvalidDataError
 
 def add_image(image):
     if not image:
@@ -9,7 +10,7 @@ def add_image(image):
     content_type = image.content_type
 
     if not content_type.startswith('image/'):
-        raise Exception('invalid type')
+        raise InvalidDataError('Invalid file type.')
 
     filename = secrets.token_hex(16)
     data = image.read()
