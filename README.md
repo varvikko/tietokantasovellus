@@ -18,6 +18,8 @@ Ylläpitäjä voi poistaa minkä tahansa ketjun tai viestin. Lisäksi ylläpitä
 
 Sovellukseen on nyt totetutettu kaikki em. toiminnot.
 
+Ylläpitäjän tunnus ja salasana on admin:admin
+
 # Deployment
 
 ## Local deployment
